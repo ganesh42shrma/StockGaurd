@@ -95,7 +95,10 @@ An **RBAC (Role-Based Access Control)** inventory management system built using 
      cd rbac-fe
      npm run start
      ```
-
+  
+5. **Admin Credentials**:
+   email ID : admin@gmail.com
+   password : password123
 ---
 
 ## Folder Structure
