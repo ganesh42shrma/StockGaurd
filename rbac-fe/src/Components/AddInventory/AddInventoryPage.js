@@ -144,8 +144,28 @@ const AddInventoryPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (formData.stock < 0) {
+      dispatch(
+        openSnackbar({
+          message: "Stock cannot be less than 0.",
+          severity: "error",
+        })
+      );
+      return;
+    }
+
+    if (formData.price < 0) {
+      dispatch(
+        openSnackbar({
+          message: "Price cannot be less than 0.",
+          severity: "error",
+        })
+      );
+      return;
+    }
+
     try {
-      const form = new FormData(); // Create FormData object to send files
+      const form = new FormData();
       // Append regular fields to formData
       form.append("name", formData.name);
       form.append("category", formData.category);
@@ -165,6 +185,8 @@ const AddInventoryPage = () => {
           severity: "success",
         })
       );
+
+      // Reset the form data
       setFormData({
         name: "",
         category: "",
