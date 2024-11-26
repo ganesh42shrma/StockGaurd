@@ -67,12 +67,12 @@ An **RBAC (Role-Based Access Control)** inventory management system built using 
 2. **Install dependencies**:
    - Frontend:
      ```bash
-     cd client
+     cd rbac-fe
      npm install
      ```
    - Backend:
      ```bash
-     cd ../server
+     cd rbac-fe
      npm install
      ```
 
@@ -87,13 +87,13 @@ An **RBAC (Role-Based Access Control)** inventory management system built using 
 4. **Start the application**:
    - Backend:
      ```bash
-     cd server
-     npm start
+     cd rbac-fe
+     npm run dev
      ```
    - Frontend:
      ```bash
-     cd ../client
-     npm start
+     cd rbac-fe
+     npm run start
      ```
 
 ---
