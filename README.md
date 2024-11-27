@@ -1,5 +1,3 @@
----
-
 # RBAC Inventory Management System
 
 An **RBAC (Role-Based Access Control)** inventory management system built using the **MERN stack**. The application supports four user roles with distinct permissions:
@@ -148,5 +146,3 @@ Contributions are welcome! Please fork this repository and submit a pull request
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
-
---- 
