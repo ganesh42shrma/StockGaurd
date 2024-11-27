@@ -1,3 +1,5 @@
+---
+
 # RBAC Inventory Management System
 
 An **RBAC (Role-Based Access Control)** inventory management system built using the **MERN stack**. The application supports four user roles with distinct permissions:
@@ -6,6 +8,8 @@ An **RBAC (Role-Based Access Control)** inventory management system built using 
 - **Category Manager**
 - **Price-Limited Manager**
 - **Viewer**
+
+---
 
 ## Features
 
@@ -56,6 +60,17 @@ An **RBAC (Role-Based Access Control)** inventory management system built using 
 
 ---
 
+## Live Demo
+
+The application is deployed on Netlify. You can access it here:  
+**[RBAC Inventory Management System](https://stkgaurd.netlify.app)**  
+
+### Admin Login Credentials
+- **Email**: `admin@gmail.com`  
+- **Password**: `password123`
+
+---
+
 ## Installation
 
 1. **Clone the repository**:
@@ -67,17 +82,17 @@ An **RBAC (Role-Based Access Control)** inventory management system built using 
 2. **Install dependencies**:
    - Frontend:
      ```bash
-     cd rbac-fe
+     cd SGFE
      npm install
      ```
    - Backend:
      ```bash
-     cd rbac-fe
+     cd SGBE
      npm install
      ```
 
 3. **Environment Variables**:
-   - Create a `.env` file in the `server` directory with the following:
+   - Create a `.env` file in the backend directory (`SGBE`) with the following:
      ```
      PORT=5000
      MONGO_URI=your_mongo_db_connection_string
@@ -87,29 +102,26 @@ An **RBAC (Role-Based Access Control)** inventory management system built using 
 4. **Start the application**:
    - Backend:
      ```bash
-     cd rbac-fe
+     cd SGBE
      npm run dev
      ```
    - Frontend:
      ```bash
-     cd rbac-fe
-     npm run start
+     cd SGFE
+     npm start
      ```
-  
-5. **Admin Credentials**:
-   email ID : admin@gmail.com
-   password : password123
+
 ---
 
 ## Folder Structure
 
 ```plaintext
 root
-├── rbac-fe/                # React frontend
+├── SGFE/                  # React frontend
 │   ├── src/
 │   ├── public/
 │   └── package.json
-├── rbac-be/                # Node.js backend
+├── SGBE/                  # Node.js backend
 │   ├── models/
 │   ├── routes/
 │   ├── controllers/
@@ -136,3 +148,5 @@ Contributions are welcome! Please fork this repository and submit a pull request
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
+
+--- 
