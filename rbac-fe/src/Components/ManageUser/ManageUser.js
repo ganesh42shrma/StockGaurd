@@ -37,6 +37,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { openSnackbar, closeSnackbar } from "../../Redux/slices/snackbarSlice";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { showConfirmation } from "../../Redux/slices/confirmationSlice";
+import ConfirmationPopup from "../../UI-components/ConfirmationPopup";
 
 const ManageUserPage = () => {
   const user = useSelector((state) => state.auth.user);
@@ -124,23 +126,44 @@ const ManageUserPage = () => {
     }
   };
 
-  const handleDeleteUser = async (userId) => {
-    try {
-      await deleteUser(userId);
-      const updatedUsers = users.filter((user) => user._id !== userId);
-      setUsers(updatedUsers);
-      dispatch(
-        openSnackbar({
-          message: "User deleted successfully",
-          severity: "success",
-        })
-      );
-    } catch (error) {
-      console.error("Error deleting user:", error);
-      dispatch(
-        openSnackbar({ message: "Error deleting user", severity: "error" })
-      );
-    }
+  const handleDeleteUser = (userId) => {
+    dispatch(
+      showConfirmation({
+        message: "Are you sure you want to delete this user?",
+        onConfirm: async () => {
+          try {
+            await deleteUser(userId);
+
+            const updatedUsers = users.filter((user) => user._id !== userId);
+            setUsers(updatedUsers);
+
+            dispatch(
+              openSnackbar({
+                message: "User deleted successfully",
+                severity: "success",
+              })
+            );
+          } catch (error) {
+            console.error("Error deleting user:", error);
+
+            dispatch(
+              openSnackbar({
+                message: "Error deleting user",
+                severity: "error",
+              })
+            );
+          }
+        },
+        onCancel: () => {
+          dispatch(
+            openSnackbar({
+              message: "Delete action canceled.",
+              severity: "info",
+            })
+          );
+        },
+      })
+    );
   };
 
   const handleEditUser = (user) => {
@@ -354,6 +377,7 @@ const ManageUserPage = () => {
           </Button>
         </DialogActions>
       </Dialog>
+      <ConfirmationPopup />
     </Grid>
   );
 };

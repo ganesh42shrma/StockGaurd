@@ -24,14 +24,12 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  CircularProgress,
   Pagination,
   Snackbar,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import { useSelector } from "react-redux";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Navigate } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
 import { useDispatch } from "react-redux";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // Carousel styles
@@ -45,6 +43,8 @@ import { getCategoriesForUser } from "../../Services/categoryServices";
 import { openSnackbar, closeSnackbar } from "../../Redux/slices/snackbarSlice";
 import Lottie from "lottie-react";
 import loaderAnimation from "../../Assets/loadinglottie.json";
+import { showConfirmation } from "../../Redux/slices/confirmationSlice";
+import ConfirmationPopup from "../../UI-components/ConfirmationPopup";
 
 const AddInventoryPage = () => {
   const dispatch = useDispatch();
@@ -216,45 +216,59 @@ const AddInventoryPage = () => {
     }
   };
 
-  const handleDelete = async (id) => {
-    try {
-      await deleteInventoryItem(id);
-      dispatch(
-        openSnackbar({
-          message: "Item deleted successfully!",
-          severity: "success",
-        })
-      );
-      fetchInventoryItems();
-    } catch (error) {
-      if (error.response && error.response.status === 403) {
-        // Handle 403 Forbidden error
-        dispatch(
-          openSnackbar({
-            message:
-              error.response.data.message ||
-              "You don't have permission to delete this item.",
-            severity: "warning",
-          })
-        );
-      } else if (error.response && error.response.status === 404) {
-        // Handle 404 Not Found error
-        dispatch(
-          openSnackbar({
-            message: "Item not found. It might have already been deleted.",
-            severity: "info",
-          })
-        );
-      } else {
-        // Handle other errors
-        dispatch(
-          openSnackbar({
-            message: error.response?.data?.message || "Failed to delete item.",
-            severity: "error",
-          })
-        );
-      }
-    }
+  const handleDelete = (id) => {
+    dispatch(
+      showConfirmation({
+        message: "Are you sure you want to delete this item?",
+        onConfirm: async () => {
+          try {
+            await deleteInventoryItem(id);
+            dispatch(
+              openSnackbar({
+                message: "Item deleted successfully!",
+                severity: "success",
+              })
+            );
+            fetchInventoryItems();
+          } catch (error) {
+            if (error.response && error.response.status === 403) {
+              dispatch(
+                openSnackbar({
+                  message:
+                    error.response.data.message ||
+                    "You don't have permission to delete this item.",
+                  severity: "warning",
+                })
+              );
+            } else if (error.response && error.response.status === 404) {
+              dispatch(
+                openSnackbar({
+                  message:
+                    "Item not found. It might have already been deleted.",
+                  severity: "info",
+                })
+              );
+            } else {
+              dispatch(
+                openSnackbar({
+                  message:
+                    error.response?.data?.message || "Failed to delete item.",
+                  severity: "error",
+                })
+              );
+            }
+          }
+        },
+        onCancel: () => {
+          dispatch(
+            openSnackbar({
+              message: "Delete action canceled.",
+              severity: "info",
+            })
+          );
+        },
+      })
+    );
   };
 
   const handleEditOpen = (item) => {
@@ -633,6 +647,7 @@ const AddInventoryPage = () => {
           </Button>
         </DialogActions>
       </Dialog>
+      <ConfirmationPopup />
     </Box>
   );
 };
