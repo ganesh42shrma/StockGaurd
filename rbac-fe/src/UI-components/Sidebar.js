@@ -1,5 +1,5 @@
 import React from "react";
-import { Drawer, List, ListItem, ListItemText, Tooltip } from "@mui/material";
+import { Drawer, List, ListItem, Tooltip, Typography } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
 import FactoryIcon from "@mui/icons-material/Factory";
 import InventoryIcon from "@mui/icons-material/Inventory";
@@ -9,17 +9,10 @@ import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import { useTheme } from "@mui/material/styles";
 
 const Sidebar = ({ drawerWidth, open, handleDrawerToggle, isSmallScreen }) => {
-  // Get the current location from react-router
   const location = useLocation();
-
-  // Helper function to check if the link is active
   const isActive = (path) => location.pathname.includes(path);
-
-  // Special case for Home - check if the path is exactly "/layout"
   const isHomeActive = location.pathname === "/layout";
   const theme = useTheme();
-
-  // Define the highlight color based on theme mode
   const highlightColor =
     theme.palette.mode === "dark"
       ? theme.palette.secondary.main
@@ -49,7 +42,7 @@ const Sidebar = ({ drawerWidth, open, handleDrawerToggle, isSmallScreen }) => {
           component={Link}
           to="/layout"
           sx={{
-            backgroundColor: isHomeActive ? highlightColor : "transparent", // Highlight active Home
+            backgroundColor: isHomeActive ? highlightColor : "transparent",
           }}
         >
           <Tooltip title="Home" arrow>
@@ -57,7 +50,14 @@ const Sidebar = ({ drawerWidth, open, handleDrawerToggle, isSmallScreen }) => {
               sx={{ mr: open ? 2 : 0, backgroundColor: theme.palette.icon }}
             />
           </Tooltip>
-          {open && <ListItemText primary="Home" />}
+          {open && (
+            <Typography
+              variant="body1"
+              sx={{ color: theme.palette.text.primary, fontWeight: "bold" }}
+            >
+              Home
+            </Typography>
+          )}
         </ListItem>
         <ListItem
           button
@@ -66,7 +66,7 @@ const Sidebar = ({ drawerWidth, open, handleDrawerToggle, isSmallScreen }) => {
           sx={{
             backgroundColor: isActive("add-inventory")
               ? highlightColor
-              : "transparent", // Highlight active Manage Inventory
+              : "transparent",
           }}
         >
           <Tooltip title="Manage Inventory" arrow>
@@ -74,7 +74,14 @@ const Sidebar = ({ drawerWidth, open, handleDrawerToggle, isSmallScreen }) => {
               sx={{ mr: open ? 2 : 0, backgroundColor: theme.palette.icon }}
             />
           </Tooltip>
-          {open && <ListItemText primary="Manage Inventory" />}
+          {open && (
+            <Typography
+              variant="body1"
+              sx={{ color: theme.palette.text.primary, fontWeight: "bold" }}
+            >
+              Manage Inventory
+            </Typography>
+          )}
         </ListItem>
         <ListItem
           button
@@ -83,7 +90,7 @@ const Sidebar = ({ drawerWidth, open, handleDrawerToggle, isSmallScreen }) => {
           sx={{
             backgroundColor: isActive("view-inventory")
               ? highlightColor
-              : "transparent", // Highlight active View Inventory
+              : "transparent",
           }}
         >
           <Tooltip title="Inventory Overview" arrow>
@@ -91,7 +98,14 @@ const Sidebar = ({ drawerWidth, open, handleDrawerToggle, isSmallScreen }) => {
               sx={{ mr: open ? 2 : 0, backgroundColor: theme.palette.icon }}
             />
           </Tooltip>
-          {open && <ListItemText primary="Inventory Overview" />}
+          {open && (
+            <Typography
+              variant="body1"
+              sx={{ color: theme.palette.text.primary, fontWeight: "bold" }}
+            >
+              Inventory Overview
+            </Typography>
+          )}
         </ListItem>
         <ListItem
           button
@@ -100,7 +114,7 @@ const Sidebar = ({ drawerWidth, open, handleDrawerToggle, isSmallScreen }) => {
           sx={{
             backgroundColor: isActive("manage-category")
               ? highlightColor
-              : "transparent", // Highlight active Manage Category
+              : "transparent",
           }}
         >
           <Tooltip title="Manage Category" arrow>
@@ -108,7 +122,14 @@ const Sidebar = ({ drawerWidth, open, handleDrawerToggle, isSmallScreen }) => {
               sx={{ mr: open ? 2 : 0, backgroundColor: theme.palette.icon }}
             />
           </Tooltip>
-          {open && <ListItemText primary="Manage Category" />}
+          {open && (
+            <Typography
+              variant="body1"
+              sx={{ color: theme.palette.text.primary, fontWeight: "bold" }}
+            >
+              Manage Category
+            </Typography>
+          )}
         </ListItem>
         <ListItem
           button
@@ -117,7 +138,7 @@ const Sidebar = ({ drawerWidth, open, handleDrawerToggle, isSmallScreen }) => {
           sx={{
             backgroundColor: isActive("manage-user")
               ? highlightColor
-              : "transparent", // Highlight active Manage Category
+              : "transparent",
           }}
         >
           <Tooltip title="Manage User" arrow>
@@ -125,7 +146,14 @@ const Sidebar = ({ drawerWidth, open, handleDrawerToggle, isSmallScreen }) => {
               sx={{ mr: open ? 2 : 0, backgroundColor: theme.palette.icon }}
             />
           </Tooltip>
-          {open && <ListItemText primary="Manage User" />}
+          {open && (
+            <Typography
+              variant="body1"
+              sx={{ color: theme.palette.text.primary, fontWeight: "bold" }}
+            >
+              Manage User
+            </Typography>
+          )}
         </ListItem>
       </List>
     </Drawer>

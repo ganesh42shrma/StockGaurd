@@ -118,9 +118,9 @@ const AddInventoryPage = () => {
   };
 
   const handleImageUpload = (e) => {
-    const files = Array.from(e.target.files); // Convert FileList to array
+    const files = Array.from(e.target.files);
     const allowedTypes = ["image/jpeg", "image/png"];
-    const maxFileSize = 5 * 1024 * 1024; // 5MB
+    const maxFileSize = 5 * 1024 * 1024;
 
     const validFiles = files.filter(
       (file) => allowedTypes.includes(file.type) && file.size <= maxFileSize
@@ -166,16 +166,15 @@ const AddInventoryPage = () => {
 
     try {
       const form = new FormData();
-      // Append regular fields to formData
+
       form.append("name", formData.name);
       form.append("category", formData.category);
       form.append("price", formData.price);
       form.append("stock", formData.stock);
       form.append("status", formData.status);
 
-      // Append images as files
       formData.images.forEach((image) => {
-        form.append("images", image); // Append each file as "images"
+        form.append("images", image);
       });
 
       await addInventoryItem(form);
@@ -185,8 +184,6 @@ const AddInventoryPage = () => {
           severity: "success",
         })
       );
-
-      // Reset the form data
       setFormData({
         name: "",
         category: "",
@@ -300,7 +297,6 @@ const AddInventoryPage = () => {
       handleEditClose();
     } catch (error) {
       if (error.response?.status === 403) {
-        // Show a specific message if the user doesn't have permission
         dispatch(
           openSnackbar({
             message:
@@ -310,7 +306,6 @@ const AddInventoryPage = () => {
           })
         );
       } else {
-        // General error message
         dispatch(
           openSnackbar({
             message: "Failed to update item. Please try again.",
@@ -374,8 +369,6 @@ const AddInventoryPage = () => {
       <Typography variant="h4" gutterBottom>
         Add New Inventory
       </Typography>
-
-      {/* Preview Card */}
       <Card sx={{ mt: 3, mb: 3 }}>
         {imagePreview.length > 0 && (
           <Carousel
@@ -431,7 +424,7 @@ const AddInventoryPage = () => {
                   Reserved: "teal",
                   Backordered: "navy",
                   Damaged: "darkred",
-                }[formData.status] || "black", // Fallback to black for unlisted statuses
+                }[formData.status] || "black",
             }}
           >
             <strong>Status:</strong> {formData.status || "N/A"}
@@ -608,8 +601,6 @@ const AddInventoryPage = () => {
           />
         </Box>
       </Box>
-
-      {/* Edit Modal */}
       <Dialog open={isEditModalOpen} onClose={handleEditClose}>
         <DialogTitle>Edit Inventory Item</DialogTitle>
         <DialogContent>
