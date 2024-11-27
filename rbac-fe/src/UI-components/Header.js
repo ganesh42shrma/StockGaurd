@@ -8,10 +8,11 @@ import {
   Box,
   Tooltip,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import { Menu as MenuIcon } from "@mui/icons-material";
 import { Settings as SettingsIcon } from "@mui/icons-material";
-import { Brightness4, Brightness7 } from "@mui/icons-material"; // Dark and Light Mode Icons
+import { Brightness4, Brightness7 } from "@mui/icons-material";
 import { logout } from "../Redux/slices/authSlice";
 import { toggleDarkMode } from "../Redux/slices/themeSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,13 +25,10 @@ const Header = ({ handleDrawerToggle }) => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  // Get user details from Redux
   const { user } = useSelector((state) => state.auth);
   const darkMode = useSelector((state) => state.theme.darkMode);
-
-  // State for managing Popover
   const [anchorEl, setAnchorEl] = useState(null);
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   const handlePopoverOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -78,7 +76,7 @@ const Header = ({ handleDrawerToggle }) => {
           />
         </Box>
 
-        {user && (
+        {!isSmallScreen && user && (
           <Box sx={{ display: "flex", alignItems: "center", mr: 2 }}>
             <Tooltip title="Role of the user" arrow>
               <Typography
@@ -93,8 +91,6 @@ const Header = ({ handleDrawerToggle }) => {
             </Tooltip>
           </Box>
         )}
-
-        {/* Dark Mode Toggle with Icons and Tooltip */}
         <Tooltip
           title={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
           arrow
